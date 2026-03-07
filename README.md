@@ -8,3 +8,9 @@ To start the app, run:
 yarn install
 yarn start
 ```
+
+To build the Docker image, run:
+
+```sh
+yarn build-image
+```
