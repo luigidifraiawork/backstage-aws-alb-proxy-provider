@@ -8,6 +8,11 @@
 
 import { createBackend } from '@backstage/backend-defaults';
 
+import {
+  coreServices,
+  createBackendFeatureLoader
+} from '@backstage/backend-plugin-api';
+
 const backend = createBackend();
 
 backend.add(import('@backstage/plugin-app-backend'));
@@ -64,5 +69,20 @@ backend.add(import('@backstage/plugin-kubernetes-backend'));
 // notifications and signals plugins
 backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
+
+// devtools plugin
+const devToolsLoader = createBackendFeatureLoader({
+  deps: {
+    config: coreServices.rootConfig,
+  },
+  *loader({ config }) {
+    const enabled = config.getOptionalBoolean('devtools.enabled') ?? false;
+    if (enabled) {
+      yield import('@backstage/plugin-devtools-backend');
+    }
+  },
+});
+
+backend.add(devToolsLoader);
 
 backend.start();

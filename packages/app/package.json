@@ -27,6 +27,7 @@
     "@backstage/plugin-catalog-graph": "^0.5.7",
     "@backstage/plugin-catalog-import": "^0.13.10",
     "@backstage/plugin-catalog-react": "^2.0.0",
+    "@backstage/plugin-devtools": "^0.1.36",
     "@backstage/plugin-kubernetes": "^0.12.16",
     "@backstage/plugin-notifications": "^0.5.14",
     "@backstage/plugin-org": "^0.6.49",
@@ -72,5 +73,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "configSchema": "config.d.ts"
 }

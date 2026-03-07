@@ -28,6 +28,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import BuildIcon from '@material-ui/icons/Build';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -54,6 +56,24 @@ const SidebarLogo = () => {
         {isOpen ? <LogoFull /> : <LogoIcon />}
       </Link>
     </div>
+  );
+};
+
+const DevToolsSidebarItem = () => {
+  const configApi = useApi(configApiRef);
+  const enabled = configApi.getOptionalBoolean('devtools.enabled') ?? false;
+
+  if (!enabled) return null;
+
+  return (
+    <>
+    <SidebarDivider />
+    <SidebarItem
+      icon={BuildIcon}
+      to="devtools"
+      text="DevTools"
+    />
+    </>
   );
 };
 
@@ -92,6 +112,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
         to="/settings"
       >
         <SidebarSettings />
+        <DevToolsSidebarItem />
       </SidebarGroup>
     </Sidebar>
     {children}

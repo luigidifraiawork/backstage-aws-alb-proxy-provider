@@ -1,3 +1,6 @@
 # Backstage override configuration for your local development environment
 auth:
   environment: development
+
+devtools:
+  enabled: true
