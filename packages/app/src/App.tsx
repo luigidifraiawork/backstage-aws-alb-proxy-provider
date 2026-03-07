@@ -45,6 +45,8 @@ import {
   useApi,
 } from '@backstage/core-plugin-api';
 
+import { customDevToolsPage } from './components/devtools/CustomDevToolsPage';
+
 const app = createApp({
   apis,
   bindRoutes({ bind }) {
@@ -112,7 +114,9 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
-    <Route path="/devtools" element={<DevToolsPage />} />
+    <Route path="/devtools" element={<DevToolsPage />} >
+      {customDevToolsPage}
+    </Route>
   </FlatRoutes>
 );
 
