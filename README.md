@@ -2,9 +2,12 @@
 
 This is your newly scaffolded Backstage App, Good Luck!
 
-To start the app, run:
+## Quick Start
+
+To start the app locally, run:
 
 ```sh
+cp app-config.local.example.yaml app-config.local.yaml
 yarn install
 yarn start
 ```
