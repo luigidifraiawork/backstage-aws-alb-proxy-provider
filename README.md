@@ -18,6 +18,44 @@ To build the Docker image, run:
 yarn build-image
 ```
 
+## Guest Access
+
+Backstage's Guest authentication provider is enabled only for local development.
+
+## Authentication via AWS ALB
+
+This Backstage application can be deployed behind an AWS Application Load Balancer (ALB) to provide seamless authentication for users. The ALB handles the authentication flow before traffic reaches Backstage, so users are transparently authenticated without needing a separate sign-in step within the app.
+
+The exact infrastructure will vary depending on the identity provider in use. One possible setup for PoC purposes might consist of:
+
+1. **AWS IAM Identity Center**: configured with Backstage registered as a SAML 2.0 application, with email attribute mapping.
+2. **Amazon Cognito**: integrated with IAM Identity Center as a federated identity provider.
+3. **AWS ALB**: configured to authenticate users via Cognito before forwarding requests to the Backstage backend running on Kubernetes.
+
+The ALB authentication would be configured through Kubernetes Ingress annotations:
+
+```yaml
+alb.ingress.kubernetes.io/auth-idp-cognito: '{"userPoolARN":"<cognito-user-pool-arn>","userPoolClientID":"<cognito-client-id>","userPoolDomain":"<cognito-domain>"}'
+alb.ingress.kubernetes.io/auth-scope: "openid email profile"
+alb.ingress.kubernetes.io/auth-session-cookie: "AWSELBAuthSessionCookie"
+```
+
+On the Backstage side, the [AWS ALB Proxy Provider](https://backstage.io/docs/auth/aws-alb/provider/) is used to resolve user identity from the ALB-injected headers.
+
+### Bootstrapping the Infrastructure with AI
+
+Rather than providing opinionated IaC manifests tied to a specific tool, you can use the following prompt with an agentic AI assistant to generate the infrastructure in your preferred tech stack (Terraform, CDK, CloudFormation, Pulumi, etc.):
+
+> Set up AWS infrastructure for authenticating a Backstage application deployed on Kubernetes behind an AWS Application Load Balancer. The setup should include:
+>
+> 1. An AWS IAM Identity Center instance with Backstage registered as a SAML 2.0 application, mapping the email attribute.
+> 2. An Amazon Cognito User Pool with IAM Identity Center configured as a federated identity provider.
+> 3. A Cognito User Pool Client and domain for use with the ALB.
+> 4. An AWS ALB configured to authenticate users via Cognito using OIDC, before forwarding traffic to the Backstage backend.
+> 5. Kubernetes Ingress annotations for ALB authentication with Cognito (`auth-idp-cognito`, `auth-scope`, `auth-session-cookie`).
+>
+> Output the infrastructure code using [your preferred IaC tool].
+
 ## References
 
 - [Creating and running a Backstage application](https://backstage.io/docs/getting-started/#creating-and-running-a-backstage-application)
