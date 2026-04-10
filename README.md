@@ -31,6 +31,19 @@ yarn build-image
 
 Backstage's Guest authentication provider is enabled only for local development.
 
+## DevTools
+
+The [DevTools plugin](https://github.com/backstage/backstage/blob/master/plugins/devtools/README.md) is installed but disabled by default. It is gated behind a configuration flag: both the backend plugin loader and the frontend sidebar item check `devtools.enabled` before activating.
+
+To enable it, set the following in your `app-config.local.yaml`:
+
+```yaml
+devtools:
+  enabled: true
+```
+
+This is already included in `app-config.local.example.yaml`.
+
 ## Authentication via AWS ALB
 
 This Backstage application can be deployed behind an AWS Application Load Balancer (ALB) to provide seamless authentication for users. The ALB handles the authentication flow before traffic reaches Backstage, so users are transparently authenticated without needing a separate sign-in step within the app.
