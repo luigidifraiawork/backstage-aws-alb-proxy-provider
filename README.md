@@ -2,6 +2,15 @@
 
 This is your newly scaffolded Backstage App, Good Luck!
 
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- **Node.js** — version 24 (Active LTS)
+- **Yarn** — version 4 (via Corepack)
+
+For full details, see the [official prerequisites guide](https://backstage.io/docs/getting-started/#prerequisites).
+
 ## Quick Start
 
 To start the app locally, run:
