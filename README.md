@@ -1,6 +1,6 @@
 # [Backstage](https://backstage.io)
 
-This is your newly scaffolded Backstage App, Good Luck!
+This is a newly scaffolded Backstage customisable application. It is useful for evaluating, developing on, or demoing Backstage.
 
 ## Prerequisites
 
